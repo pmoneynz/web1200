@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.30/Tone.js"></script>
+  <title>Real Time Sequencer</title>
+</head>
+  
+<body>
+  <!-- <h1>Real Time Sequencer</h1> -->
+  <p id="counter">01:01:01</p>
+  <label for="partLength">Bars:</label>
+  <input type="number" id="partLength" name="partLength" min="1" max="99" value="2">
+  <br>
+  <label for="tempo">BPM:</label>
+  <input type="number" id="tempo" name="tempo" min="40" max="240" value="120">
+         <!-- Quantize Settings -->
+  <label for="quantizeSelect">Quantize:</label>
+    <select id="quantizeSelect">
+      <option value="4n">1/4</option>
+      <option value="4t">1/4t</option>
+      <option value="8n" >1/8</option> 
+      <option value="8t">1/8t</option>
+      <option value="16n" selected>1/16</option> <!-- Add the selected attribute here -->
+      <option value="16t">1/16t</option>
+      <option value="32n">1/32</option>
+      <option value="32t">1/32t</option>
+      <option value="64t">HiRes</option>
+    </select>
+  <br>
+        <!-- Swing Settings -->
+   <label for="swingValue">Swing Value:</label>
+      <select id="swingValue">
+      <option value="8n">1/8</option>
+      <option value="16n" selected>1/16</option>
+    </select>
+  <label for="swingSelect">Amount:</label>
+    <select id="swingSelect">
+      <option value="0">OFF</option>
+      <option value="0.0833">54%</option>
+      <option value="0.1666">58%</option>
+      <option value="0.25">63%</option>
+      <option value="0.3333">67%</option>
+      <option value="0.4166">71%</option>
+    </select>
+  <br>
+  <br>
+  <button class="button-common" id="muteButton">Metronome On</button>
+  <br>
+  <br>
+  <button class="button-common" id="playStopButton">Play</button>
+  <button id="recordButton">Record</button>
+  <button class="button-common" id="deleteButton">Erase</button>
+  <button class="button-common" id="eraseAllButton">Delete All</button>  
+  <br>
+  <br>
+    <!-- Mode Switch -->
+    <div class="mode-switches">
+      <label>
+        <input type="radio" name="mode" value="Tune" checked> Tune
+      </label>
+      <label>
+        <input type="radio" name="mode" value="Mix"> Mix
+      </label>
+    </div>
+  <br>
+     <!-- Pad Banks -->
+    <div class="pad-banks">
+      <label>
+        <input type="radio" name="bank" value="0" checked> Bank A
+      </label>
+      <label>
+        <input type="radio" name="bank" value="1"> Bank B
+      </label>
+    </div>
+   <br>
+     <!-- Drum Pads -->
+    <div id="pads">
+      <!-- Bank A -->
+      <div id="bank0" class="bank">
+      <div id="pad0" class="pad">1
+        <input type="range" min="0.5" max="2" value="1" step="0.1" class="pitch-slider">
+        <input type="range" min="0.1" max="1" value="1" step="0.1" class="volume-slider"> 
+      </div>
+      <div id="pad1" class="pad">2
+        <input type="range" min="0.5" max="2" value="1" step="0.1" class="pitch-slider">
+        <input type="range" min="0.1" max="1" value="1" step="0.1" class="volume-slider"> 
+      </div>
+      <div id="pad2" class="pad">3
+        <input type="range" min="0.5" max="2" value="1" step="0.1" class="pitch-slider">
+        <input type="range" min="0.1" max="1" value="1" step="0.1" class="volume-slider"> 
+      </div>
+      <div id="pad3" class="pad">4
+        <input type="range" min="0.5" max="2" value="1" step="0.1" class="pitch-slider">
+        <input type="range" min="0.1" max="1" value="1" step="0.1" class="volume-slider"> 
+      </div>
+      <div id="pad4" class="pad">5
+        <input type="range" min="0.5" max="2" value="1" step="0.1" class="pitch-slider">
+        <input type="range" min="0.1" max="1" value="1" step="0.1" class="volume-slider"> 
+      </div>
+      <div id="pad5" class="pad">6
+        <input type="range" min="0.5" max="2" value="1" step="0.1" class="pitch-slider">
+        <input type="range" min="0.1" max="1" value="1" step="0.1" class="volume-slider"> 
+      </div>
+      <div id="pad6" class="pad">7
+        <input type="range" min="0.5" max="2" value="1" step="0.1" class="pitch-slider">
+        <input type="range" min="0.1" max="1" value="1" step="0.1" class="volume-slider"> 
+      </div>
+      <div id="pad7" class="pad">8
+        <input type="range" min="0.5" max="2" value="1" step="0.1" class="pitch-slider">
+        <input type="range" min="0.1" max="1" value="1" step="0.1" class="volume-slider"> 
+      </div>  
+      </div>
+        <!--- Pad Bank B -->
+        <div id="bank1" class="bank hidden">
+      <div id="pad8" class="pad">1B
+        <input type="range" min="0.5" max="2" value="1" step="0.1" class="pitch-slider">
+        <input type="range" min="0.1" max="1" value="1" step="0.1" class="volume-slider">  
+        </div>
+      <div id="pad9" class="pad">2B
+        <input type="range" min="0.5" max="2" value="1" step="0.1" class="pitch-slider">
+        <input type="range" min="0.1" max="1" value="1" step="0.1" class="volume-slider">
+        </div>
+      <div id="pad10" class="pad">3B
+        <input type="range" min="0.5" max="2" value="1" step="0.1" class="pitch-slider">
+        <input type="range" min="0.1" max="1" value="1" step="0.1" class="volume-slider">
+        </div>
+      <div id="pad11" class="pad">4B
+        <input type="range" min="0.5" max="2" value="1" step="0.1" class="pitch-slider">
+        <input type="range" min="0.1" max="1" value="1" step="0.1" class="volume-slider">
+        </div>
+      <div id="pad12" class="pad">5B
+        <input type="range" min="0.5" max="2" value="1" step="0.1" class="pitch-slider">
+        <input type="range" min="0.1" max="1" value="1" step="0.1" class="volume-slider">
+        </div>
+      <div id="pad13" class="pad">6B
+        <input type="range" min="0.5" max="2" value="1" step="0.1" class="pitch-slider">
+        <input type="range" min="0.1" max="1" value="1" step="0.1" class="volume-slider">
+        </div>
+      <div id="pad14" class="pad">7B
+        <input type="range" min="0.5" max="2" value="1" step="0.1" class="pitch-slider">
+        <input type="range" min="0.1" max="1" value="1" step="0.1" class="volume-slider">
+        </div>
+      <div id="pad15" class="pad">8B
+        <input type="range" min="0.5" max="2" value="1" step="0.1" class="pitch-slider">
+        <input type="range" min="0.1" max="1" value="1" step="0.1" class="volume-slider">
+      </div>
+        </div>
+      <!-- Add the rest of the pads -->
+    </div>
+  <br>
+  <script src="script.js"></script>
+</body>
+</html>
