@@ -12,10 +12,10 @@ Each sound has independent level and pitch sliders ("tune" and "mix")
 - Experiment with different 'Swing' settings.
 
 Hot Keys:
-Spacebar = Play/Stop
-R = Record
-D = Delete All
-M = Metronome On/Off
+- Spacebar = Play/Stop
+- R = Record
+- D = Delete All
+- M = Metronome On/Off
 
 Tempo: up and down arrows 
 
