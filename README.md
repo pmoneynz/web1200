@@ -11,6 +11,15 @@ Each sound has independent level and pitch sliders ("tune" and "mix")
 - Press 'Record' and capture your drum pattern in real time.
 - Experiment with different 'Swing' settings.
 
+Hot Keys:
+Spacebar = Play/Stop
+R = Record
+D = Delete All
+M = Metronome On/Off
+
+Tempo: up and down arrows 
+
+
 Have fun!
 
 _Roadmap_
